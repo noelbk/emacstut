@@ -1,0 +1,29 @@
+;; -*- lisp -*-
+;;--------------------------------------------------------------------
+;; emacstut/dot-emacs
+;; Noel Burton-Krahn <noel@burton-krahn.com>
+
+(global-set-key "\C-r" 'query-replace-regexp)
+(global-set-key "\M-l" 'goto-line)
+
+(line-number-mode t)
+(column-number-mode t)
+
+(load "term")
+(term-set-escape-char ?\C-x)
+
+(defun newshell ()
+  "creates a shell with a given name"
+  (interactive)
+  (let ((shell-name (read-string "shell name: " nil)))
+    (shell shell-name)))
+
+(load "tramp")
+(defun ssh ()
+  "a shell with default-directory /ssh:user@host:"
+  (interactive)
+  (let* ((host (read-string "ssh user@host: " nil))
+	 (default-directory (concat "/ssh:" host ":")))
+    (shell host)
+    ))
+
